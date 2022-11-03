@@ -7,12 +7,19 @@ function findNeighbors(node, matrix) {
         neighbors.push([row - 1, col])
     }
     // Down
-
+    if (matrix[row + 1]) {
+        neighbors.push([row + 1, col])
+    }
     // Left
-
+    if (matrix[col - 1]) {
+        neighbors.push([row, col - 1])
+    }
     // Right
-
+    if (matrix[col + 1]) {
+        neighbors.push([row, col + 1])
+    }
     // Your code here
+    return neighbors
 }
 
 
