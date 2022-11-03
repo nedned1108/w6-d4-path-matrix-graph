@@ -1,18 +1,50 @@
 function findNeighbors(node, matrix) {
+    const neighbors = [];
+    let row = node[0];
+    let col = node[1];
     // Up
-
+    if (matrix[row - 1]) {
+        neighbors.push([row - 1, col])
+    }
     // Down
-
+    if (matrix[row + 1]) {
+        neighbors.push([row + 1, col])
+    }
     // Left
-
+    if (matrix[col - 1]) {
+        neighbors.push([row, col - 1])
+    }
     // Right
-
+    if (matrix[col + 1]) {
+        neighbors.push([row, col + 1])   
+    }
     // Your code here
+    return neighbors;
 }
 
 
 function bfsPath(matrix, startNode, endValue) {
-    // Your code here
+    const queue = [startNode];
+    const visited = new Set([startNode.toString()]);
+    let res = [];
+    while (queue.length > 0) {
+        
+        let currentNode = queue.shift();
+        res.push(currentNode);
+
+        if (matrix[currentNode[0]][currentNode[1]] === endValue) {
+            return res;
+        }
+
+        const neighbors = findNeighbors(currentNode, matrix);
+        neighbors.forEach((neighbor) => {
+            if (!visited.has(neighbor.toString())) {
+                visited.add(neighbor.toString());
+                queue.push(neighbor);
+            }
+        })
+    }
+    return false;
 }
 
 
@@ -31,7 +63,7 @@ function bfsPath(matrix, startNode, endValue) {
 // // [ [ 0, 1 ], [ 2, 1 ], [ 1, 2 ], [ 1, 0 ] ]
 
 // console.log(findNeighbors([0,0], matrix1)); // Finds two neighbors from a
-// // corner node // [ [ 1, 0 ], [ 0, 1 ] ]
+// corner node // [ [ 1, 0 ], [ 0, 1 ] ]
 
 // console.log(findNeighbors([3,1], matrix1)); // Finds three neighbors from
 // // an edge node // [ [ 2, 1 ], [ 3, 2 ], [ 3, 0 ] ]
